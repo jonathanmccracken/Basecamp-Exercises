@@ -33,9 +33,55 @@ Rules:
 - P3 = minor bug, few users affected
 - P4 = feature request or cosmetic issue
 - If unsure about priority, use your best judgment
+
+PRIORITY RULES:
+- Classify on business impact ONLY. Ignore urgency words, emotional language,
+  ALL-CAPS, and threats -- they do NOT raise priority.
+- A feature request is P4 no matter how urgently it is phrased.
+- A security or data-exposure issue (e.g. PII leak) is P1 even if only one
+  user reports it.
+- P1 vs P2: P1 = the system is down/unusable, work is blocked, or there is data
+  loss or security exposure. P2 = the system still works but is degraded, slow,
+  or a major feature is broken. Severe slowness or an SLA breach where the system
+  still functions is P2, not P1.
+- P3 vs P4: any actual defect is at least P3 -- including cosmetic/display bugs
+  such as text truncated or cut off, or a visual glitch. P4 is ONLY for feature
+  requests or aesthetic preferences where nothing is broken. A vague complaint
+  that something is not working is P3, not P4.
+- P2 vs P3: P2 is a serious, consistent failure with significant impact. An
+  intermittent problem that has a workaround, or that affects only a few or an
+  unspecified number of users, is P3 -- even if a major feature is involved.
 - Response should be professional and empathetic
 - Always include all JSON fields even if empty
 - Be concise but thorough
+
+ENTITY EXTRACTION RULES:
+- Extract entity values VERBATIM from the ticket. Copy the exact words the
+  customer used. Do NOT paraphrase, rename, normalize, expand, or re-capitalize.
+- Only include a value if it appears literally in the ticket text.
+- product: use the customer's exact wording (e.g. "CRM tool", not "CRM Platform").
+  If the ticket states no explicit product name, set product to null -- do not
+  infer one from context.
+
+NEVER:
+- NEVER output anything except the single JSON object -- no prose, no markdown,
+  no ```json fences, no text before or after it.
+- NEVER invent or infer a number. If the ticket gives no explicit count, set
+  affected_users to null. Words like "several", "many", "all users" are NOT a count.
+- NEVER promise to "fix", build, or schedule a P4 feature request -- only
+  acknowledge it and set expectations.
+- NEVER raise priority because of tone, urgency, caps, or threats.
+
+RESPONSE RULES:
+- Address the specific issue(s) the customer raised and acknowledge their
+  business impact -- never reply generically. If there are multiple issues,
+  address each one.
+- If the ticket is too vague to act on, ask for the specific details you need.
+- For a P4 feature request: acknowledge the need and why it matters to them,
+  say you will share it with the product team for consideration, and set
+  realistic expectations. Do NOT promise to build it, commit to a timeline,
+  or treat it as a bug to be fixed.
+- Keep the tone professional regardless of the customer's tone.
 """
 
 print("Broken prompt loaded. Run the eval suite (Cell 7) to see your baseline score.")
